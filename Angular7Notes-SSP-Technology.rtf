@@ -1,0 +1,188 @@
+{\rtf1\fbidis\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil Calibri;}{\f2\fnil\fcharset1 Cambria Math;}{\f3\fnil\fcharset0 Cambria Math;}{\f4\fnil Cambria Math;}{\f5\fnil\fcharset1 Segoe UI Symbol;}{\f6\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 6.3.9600}{\*\mmathPr\mmathFont2\mwrapIndent1440 }\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 * Prerequisites--\par
+1. Node.js\par
+Angular requires Node.js version 8.x or 10.x.---- To check your version, run node -v in a terminal/console window.----To get Node.js, go to nodejs.org.\par
+2. npm package manager \par
+npm is the world\f1\rquote\f0 s largest software registry. Open source developers from every continent use npm to share and borrow packages, and many organizations use npm to manage private development as well.\par
+
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1 Adapt packages of code for your apps, or incorporate packages as they are.\par
+{\pntext\f6\'B7\tab}Download standalone tools you can use right away.\par
+{\pntext\f6\'B7\tab}Run packages without downloading using npx.\par
+{\pntext\f6\'B7\tab}Share code with any npm user, anywhere.\par
+{\pntext\f6\'B7\tab}Restrict code to specific developers.\par
+{\pntext\f6\'B7\tab}Create Orgs (organizations) to coordinate package maintenance, coding, and developers.\par
+{\pntext\f6\'B7\tab}Form virtual teams by using Orgs.\par
+{\pntext\f6\'B7\tab}Manage multiple versions of code and code dependencies.\par
+{\pntext\f6\'B7\tab}Update applications easily when underlying code is updated.\par
+{\pntext\f6\'B7\tab}Discover multiple ways to solve the same puzzle.\par
+{\pntext\f6\'B7\tab}Find other developers who are working on similar problems and projects.\par
+
+\pard\sa200\sl276\slmult1\par
+npm Install Details :- ( {{\field{\*\fldinst{HYPERLINK https://docs.npmjs.com/cli/install }}{\fldrslt{https://docs.npmjs.com/cli/install\ul0\cf0}}}}\f0\fs22  )\par
+This command installs a package, and any packages that it depends on.\par
+A package is: \par
+\tab a) a folder containing a program described by a package.json file\par
+\tab b) a gzipped tarball containing (a)\par
+\tab\tab * \b What's a tarball? - or - How do I unpack or create a .tgz or .tar.gz file?\par
+\b0\tab\tab Most Unix software on the net is distributed in the form of a tarball. This just means that all the files have been packed into a tar file, which has been compressed with gzip to save space. The file name thus ends up having extension .tar.gz. Sometimes this is shortened to .tgz.\par
+\tab c) a url that resolves to (b)\par
+\tab d) a <name>@<version> that is published on the registry (see npm-registry) with (c)\par
+\tab e) a <name>@<tag> (see npm-dist-tag) that points to (d)\par
+\tab f) a <name> that has a \f1\ldblquote\f0 latest\f1\rdblquote  \f0 tag satisfying (e)\par
+\tab g) a <git remote url> that resolves to (a)\par
+* npm install (in package directory, no arguments):\par
+Install the dependencies in the local node_modules folder.\par
+In global mode (ie, with -g or --global appended to the command), it installs the current package context (ie, the current working directory) as a global package.\par
+By default, npm install will install all modules listed as dependencies in package.json.\par
+With the --production flag (or when the NODE_ENV environment variable is set to production), npm will not install modules listed in devDependencies.\par
+npm install saves any specified packages into dependencies by default. Additionally, you can control where and how they get saved with some additional flags:\par
+-P, --save-prod: Package will appear in your dependencies. This is the default unless -D or -O are present.\par
+-D, --save-dev: Package will appear in your devDependencies.\par
+-O, --save-optional: Package will appear in your optionalDependencies.\par
+--no-save: Prevents saving to dependencies.\par
+When using any of the above options to save dependencies to your package.json, there are two additional, optional flags:\par
+-E, --save-exact: Saved dependencies will be configured with an exact version rather than using npm\f1\rquote\f0 s default semver range operator.\par
+-B, --save-bundle: Saved dependencies will also be added to your bundleDependencies list.\par
+------------------------------------------------------------------------------------------------------------------\par
+\b Step 1: Install the Angular CLI\b0\par
+\tab\tab\tab\tab\tab npm install -g @angular/cli\par
+\b Step 2: Create a workspace and initial application\b0\par
+\tab\tab To create a new workspace and initial app project:\par
+\tab\tab Run the CLI command ng new and provide the name my-app, as shown here:\tab\par
+\tab\tab\tab ng new my_appName\par
+The Angular 6 app folder has the following folder structure \f2\u8722?\f0\par
+\b\lang1033 * e2e \b0\f2\u8722?\f1  \f0 end to end test folder. Mainly e2e is used for integration testing and helps ensure the application works fine.\par
+\{ {{\field{\*\fldinst{HYPERLINK https://coryrylan.com/blog/introduction-to-e2e-testing-with-the-angular-cli-and-protractor }}{\fldrslt{https\f3 ://\f0 coryrylan\f3 .\f0 com\f3 /\f0 blog\f3 /\f0 introduction\f3 -\f0 to\f3 -\f0 e2e\f3 -\f0 testing\f3 -\f0 with\f3 -\f0 the\f3 -\f0 angular\f3 -\f0 cli\f3 -\f0 and\f3 -\f0 protractor\ul0\cf0}}}}\f0\fs22  \}\par
+Our\f3  \f0 E2E\f3  \f0 tests\f3  \f0 can\f3  \f0 open\f3  \f0 our\f3  \f0 app\f3  \f0 in\f3  \f0 the\f3  \f0 browser\f3  \f0 and\f3  \f0 interact\f3  \f0 with\f3  \f0 our\f3  \f0 app\f3  \f0 to\f3  \f0 make\f3  \f0 sure\f3  \f0 the\f3  \f0 feature\f3  \f0 works\f3  \f0 correctly\f3 .\f0\par
+\b * node_modules \b0\f2\u8722?\f1  \f0 The npm package installed is node_modules. You can open the folder and see the packages available.\par
+\b * src \b0\f2\u8722?\f1  \f0 This folder is where we will work on the project using Angular 4.\par
+The Angular 6 app folder has the following file structure \f2\u8722?\f0\par
+\b ** .angular-cli.json / .angular.json \b0\f2\u8722?\f1  \f0\{ {{\field{\*\fldinst{HYPERLINK https://nitayneeman.com/posts/understanding-the-angular-cli-workspace-file/ }}{\fldrslt{https\f3 ://\f0 nitayneeman\f3 .\f0 com\f3 /\f0 posts\f3 /\f0 understanding\f3 -\f0 the\f3 -\f0 angular\f3 -\f0 cli\f3 -\f0 workspace\f3 -\f0 file\f3 /\ul0\cf0}}}}\f0\fs22  \}\par
+It basically holds the project name, version of cli, etc.\par
+It\f1\rquote\f0 s\f3  \f0 well\f3 -\f0 known\f3  \f0 that\f3  \f0 this\f3  \f0 file\f3  \f0 is\f3  \f0 used\f3  \f0 as\f3  \f0 the\f3  \f0 configuration\f3  \f0 schema\f3  \f0 for\f3  \f0 the\f3  \f0 whole\f3  \f0 project\f3  \f0 and\f3  \f0 manipulated\f3  \f0 by\f3  \f0 the\f3  \f0 CLI\f3  - \f0 including\f3  \f0 managing\f3  \f0 of\f3  \f0 different\f3  \f0 environments\f3 , \f0 testing\f3 , \f0 proxy\f3 , \f0 third\f3 -\f0 party\f3  \f0 resources\f3  \f0 and\f3  \f0 plenty\f3  \f0 of\f3  \f0 built\f3 -\f0 in\f3  \f0 tools\f3  \f0 and\f3  \f0 capabilities\f3  \f0 for\f3  \f0 developing\f3  \f0 our\f3  \f0 application\f3 .\par
+When it comes to managing multiple applications within a single directory - it\f4\rquote\f3 s indeed possible, but not ideal. We cannot share and reuse common code across the multiple applications easily. Beyond that, we cannot configure the build process for each application without the aid of npm scripts.\par
+\b\f0 JSON\f3  \f0 Schema\f3  \b0\f0 is\f3  \f0 a\f3  \f0 tool\f3  \f0 that\f3  \f0 allows\f3  \f0 us\f3  \f0 to\f3  \f0 annotate\f3  \f0 and\f3  \f0 validate\f3  \f0 the\f3  \f0 structure\f3  \f0 of\f3  \f0 JSON\f3  \f0 data\f3 .\par
+\b The version \b0 property specifies what\f4\rquote\f3 s the Angular Workspace schema version which is currently in use\par
+\b The schematics property \b0 workflow tool, as part of Angular DevKit, which lets us transform, generate or update our project development workflow\par
+\b cli\b0\par
+The cli property let us define the configuration for Angular CLI in our workspace.\par
+These are the configurable properties:\par
+1\u-497?\f5\lang1033\u8419?\f3  - \b defaultCollection\b0\par
+The defaultCollection property specifies what\f4\rquote\f3 s the set of Schematics which in use. The @nrwl/schematics set is an excellent example of another Schematics implementation for the sake of development and maintenance of Angular applications - with an emphasis on enterprises.\par
+2\u-497?\f5\u8419?\f3  - \b packageManager\b0\par
+The packageManager property specifies which package manager Angular CLI uses to perform the commands:\f0\par
+3\u-497?\f5\u8419?\f3  - \b\f0 warnings\b0\par
+The\f3  \f0 warnings\f3  \f0 property\f3  \f0 controls\f3  \f0 in\f3  \f0 a\f3  \f0 manner\f3  \f0 of\f3  \f0 displaying\f3  \f0 console\f3  \f0 warnings\f3  \f0 due\f3  \f0 to\f3  \f0 Angular\f3  \f0 CLI\f1\rquote\f0 s\f3  \f0 commands\f3 . \f0 We\f3  \f0 can\f3  \f0 disable\f3  \f0 the\f3  \f1\ldblquote\f0 version\f3  \f0 mismatch\f1\rdblquote\f4  \f0 warning\f3  \f0 in\f3  \f0 case\f3  \f0 of\f3  \f0 version\f3  \f0 conflicts\f3  \f0 regarding\f3  \f0 the\f3  \f0 global\f3  \f0 and\f3  \f0 local\f3  \f0 Angular\f3  \f0 CLI\f3  \f0 version\f3  - \f0 and\f3  \f0 for\f3  \f0 TypeScript\f3  \f0 versions\f3  \f0 either\f3 .\par
+\b newProjectRoot\b0\par
+The newProjectRoot property specifies where\f4\rquote\f3 s the place that new internal applications and libraries (as long as these are generated by the CLI) will be placed.\par
+\b projects\b0\par
+The projects property includes the configuration for any project in our workspace.\par
+1\u-497?\f5\u8419?\f3  - \b root\b0\par
+The root property specifies what\f4\rquote\f3 s the main directory with all project\f4\rquote\f3 s files. Probably will be an empty value for the main project of our workspace whereas it indicates for a specific directory for internal projects.\par
+2\u-497?\f5\u8419?\f3  - \b sourceRoot\b0\par
+The sourceRoot property specifies where the source files are placed for the project.\par
+3\u-497?\f5\u8419?\f3  - \b projectType\b0\par
+Using ng generate it\f4\rquote\f3 s possible now to create internal projects within our main project - which are configured as part of the general configuration file. Those projects could be generated as an internal application or library. That\f4\rquote\f3 s exactly the reason for the projectType property - a statement whether that project is an application or library.\par
+4\u-497?\f5\u8419?\f3  - \b prefix\b0\par
+Written in the official Angular style guide that we should adopt a custom prefix for components and directives in order to identify them completely and prevent collisions. The prefix property specifies that custom prefix which will be applied when generating components or directives using Angular CLI.\par
+5\u-497?\f5\u8419?\f3  - \b schematics\b0\par
+In a similar way, it\f4\rquote\f3 s possible to configure the options of Schematics packages in a level of an internal project - so these will be applied strictly on that project. In case that same option is defined on the root level and internal project\f4\rquote\f3 s level either, the internal project\f4\rquote\f3 s level would be applied. As you probably guess, that\f4\rquote\f3 s done through the schematics property.\par
+6\u-497?\f5\u8419?\f3  - \b targets\b0\par
+Any project in a workspace able to contain and customize automatic task commands - such as bundling, serving, testing, linting and more. These are based on prebuilt builders and called Architect Targets.\par
+\b defaultProject\b0\par
+The defaultProject property represents the name which shows up while using some of Angular CLI\f4\rquote\f3 s commands.\f0\par
+** .\b editorconfig \b0\f2\u8722?\f1  \f0\lang1033\{ {{\field{\*\fldinst{HYPERLINK https://editorconfig.org/ }}{\fldrslt{https://editorconfig.org/\ul0\cf0}}}}\f0\fs22  \}\f1\par
+\f0 This is the config file for the editor.\par
+EditorConfig\f3  \f0 helps\f3  \f0 maintain\f3  \f0 consistent\f3  \f0 coding\f3  \f0 styles\f3  \f0 for\f3  \f0 multiple\f3  \f0 developers\f3  \f0 working\f3  \f0 on\f3  \f0 the\f3  \f0 same\f3  \f0 project\f3  \f0 across\f3  \f0 various\f3  \f0 editors\f3  \f0 and\f3  \f0 IDEs\f3 . \f0 The\f3  \f0 EditorConfig\f3  \f0 project\f3  \f0 consists\f3  \f0 of\f3  \f0 a\f3  \f0 file\f3  \f0 format\f3  \f0 for\f3  \f0 defining\f3  \f0 coding\f3  \f0 styles\f3  \f0 and\f3  \f0 a\f3  \f0 collection\f3  \f0 of\f3  \f0 text\f3  \f0 editor\f3  \f0 plugins\f3  \f0 that\f3  \f0 enable\f3  \f0 editors\f3  \f0 to\f3  \f0 read\f3  \f0 the\f3  \f0 file\f3  \f0 format\f3  \f0 and\f3  \f0 adhere\f3  \f0 to\f3  \f0 defined\f3  \f0 styles\f3 .\par
+
+\pard\sa200\sl276\slmult1\qc Wildcard Patterns\par
+
+\pard\sa200\sl276\slmult1 Special characters recognized in section names for wildcard matching:\par
+* --\tab Matches any string of characters, except path separators (/)\par
+** --\tab Matches any string of characters\par
+? ---\tab Matches any single character\par
+[name]\tab  -- Matches any single character in name\par
+[!name] ---\tab Matches any single character not in name\par
+\{s1,s2,s3\} ---\tab Matches any of the strings given (separated by commas) (Available since EditorConfig Core 0.11.0)\par
+\{num1..num2\} ---\tab Matches any integer numbers between num1 and num2, where num1 and num2 can be either positive or negative.\par
+indent_style: --- set to tab or space to use hard tabs or soft tabs respectively.\par
+indent_size:   ---- a whole number defining the number of columns used for each indentation level and the width of soft tabs (when supported). When set to tab, the value of tab_width (if specified) will be used.\par
+tab_width:---  a whole number defining the number of columns used to represent a tab character. This defaults to the value of indent_size and doesn't usually need to be specified.\par
+end_of_line:---  set to lf, cr, or crlf to control how line breaks are represented.\par
+charset: ----  set to latin1, utf-8, utf-8-bom, utf-16be or utf-16le to control the character set.\par
+trim_trailing_whitespace:----  set to true to remove any whitespace characters preceding newline characters and false to ensure it doesn't.\par
+insert_final_newline: ---- set to true to ensure file ends with a newline when saving and false to ensure it doesn't.\par
+root:---  special property that should be specified at the top of the file outside of any sections. Set to true to stop .editorconfig files search on current file.\par
+\f0\par
+** .\b gitignore \b0\f2\u8722?\f1  \f0 A .gitignore file should be committed into the repository, in order to share the ignore rules with any other users that clone the repository.\par
+** \b karma.conf.js \b0\f2\u8722?\f1  \lang1033  \f0\{ {{\field{\*\fldinst{HYPERLINK https://medium.com/frontend-fun/angular-unit-testing-jasmine-karma-step-by-step-e3376d110ab4 }}{\fldrslt{https://medium.com/frontend-fun/angular-unit-testing-jasmine-karma-step-by-step-e3376d110ab4\ul0\cf0}}}}\f0\fs22  \}\f1\par
+\f0 This is used for unit testing via the protractor. All the information required for the project is provided in karma.conf.js file.\par
+frameworks\f3 : \f0 this\f3  \f0 is\f3  \f0 where\f3  \f0 jasmine\f3  \f0 gets\f3  \f0 set\f3  \f0 as\f3  \f0 a\f3  \f0 testing\f3  \f0 framework\f3 . \f0 If\f3  \f0 you\f3  \f0 want\f3  \f0 to\f3  \f0 use\f3  \f0 another\f3  \f0 framework\f3  \f0 this\f3  \f0 is\f3  \f0 the\f3  \f0 place\f3  \f0 to\f3  \f0 do\f3  \f0 it\f3 .\f0\par
+reporters\f3 : \f0 this\f3  \f0 is\f3  \f0 where\f3  \f0 you\f3  \f0 set\f3  \f0 the\f3  \f0 reporters\f3 . \f0 You\f3  \f0 can\f3  \f0 change\f3  \f0 them\f3  \f0 or\f3  \f0 add\f3  \f0 new\f3  \f0 ones\f3 .\f0\par
+autoWatch\f3 : \f0 if\f3  \f0 this\f3  \f0 is\f3  \f0 set\f3  \f0 to\f3  \f0 true\f3 , \f0 the\f3  \f0 tests\f3  \f0 run\f3  \f0 in\f3  \f0 watch\f3  \f0 mode\f3 . \f0 If\f3  \f0 you\f3  \f0 change\f3  \f0 any\f3  \f0 test\f3  \f0 and\f3  \f0 save\f3  \f0 the\f3  \f0 file\f3  \f0 the\f3  \f0 tests\f3  \f0 are\f3  \f0 re\f3 -\f0 build\f3  \f0 and\f3  \f0 re\f3 -\f0 run\f3 .\f0\par
+browsers\f3 : \f0 this\f3  \f0 is\f3  \f0 where\f3  \f0 you\f3  \f0 set\f3  \f0 the\f3  \f0 browser\f3  \f0 where\f3  \f0 the\f3  \f0 test\f3  \f0 should\f3  \f0 run\f3 . \f0 By\f3  \f0 default\f3  \f0 it\f3  \f0 is\f3  \f0 chrome\f3  \f0 but\f3  \f0 you\f3  \f0 can\f3  \f0 install\f3  \f0 and\f3  \f0 use\f3  \f0 other\f3  \f0 browser\f3  \f0 launchers\f3 .\par
+\f0\par
+\b ** package.json \b0\f2\u8722?\f1\lang1033  \f0\{ {{\field{\*\fldinst{HYPERLINK https://docs.npmjs.com/creating-a-package-json-file }}{\fldrslt{https://docs.npmjs.com/creating-a-package-json-file\ul0\cf0}}}}\f0\fs22  \}  \f4\par
+\f0 The package.json file tells which libraries will be installed into node_modules when you run npm install.\par
+protractor\f3 .\f0 conf\f3 .\f0 js\f3  \f2\u8722?\f4  \f0 This\f3  \f0 is\f3  \f0 the\f3  \f0 testing\f3  \f0 configuration\f3  \f0 required\f3  \f0 for\f3  \f0 the\f3  \f0 application\f3 .\f0\par
+tsconfig\f3 .\f0 json\f3  \f2\u8722?\f4  \f0 This\f3  \f0 basically\f3  \f0 contains\f3  \f0 the\f3  \f0 compiler\f3  \f0 options\f3  \f0 required\f3  \f0 during\f3  \f0 compilation\f3 .\f0\par
+tslint\f3 .\f0 json\f3  \f2\u8722?\f4  \f0 This\f3  \f0 is\f3  \f0 the\f3  \f0 config\f3  \f0 file\f3  \f0 with\f3  \f0 rules\f3  \f0 to\f3  \f0 be\f3  \f0 considered\f3  \f0 while\f3  \f0 compiling\f3 .\par
+\b app\b0\par
+It contains the files described below. These files are installed by angular-cli by default.\par
+app.module.ts \f2\u8722? \f3 If you open the file, you will see that the code has reference to different libraries, which are imported. Angular-cli has used these default libraries for the import - angular/core, platform-browser. The names itself explain the usage of the libraries.\par
+\tab declarations \f2\u8722? \f3 In declarations, the reference to the components is stored. The Appcomponent is the default component that is created whenever a new project is initiated. We will learn about creating new components in a different section.\par
+imports \f2\u8722? \f3 This will have the modules imported as shown above. At present, BrowserModule is part of the imports which is imported from @angular/platform-browser.\par
+providers \f2\u8722? \f3 This will have reference to the services created. The service will be discussed in a subsequent chapter.\par
+bootstrap \f2\u8722? \f3 This has reference to the default component created, i.e., AppComponent.\par
+app.component.css \f2\u8722? \f3 You can write your css structure over here. Right now, we have added the background color to the div as shown below.\par
+app.component.html \f2\u8722? \f3 The html code will be available in this file.\par
+app.component.spec.ts \f2\u8722? \f3 These are automatically generated files which contain unit tests for source component.\par
+app.component.ts \f2\u8722? \f3 The class for the component is defined over here. You can do the processing of the html structure in the .ts file. The processing will include activities such as connecting to the database, interacting with other components, routing, services, etc.\par
+\b Assets\b0\par
+You can save your images, js files in this folder.\par
+\b Environment\b0\par
+This folder has the details for the production or the dev environment. The folder contains two files.\par
+environment.prod.ts\par
+environment.ts\par
+Both the files have details of whether the final file should be compiled in the production environment or the dev environment.\par
+The additional file structure of Angular 4 app folder includes the following \f2\u8722?\f3\par
+favicon.ico\par
+This is a file that is usually found in the root directory of a website.\par
+index.html\par
+This is the file which is displayed in the browser.\par
+main.ts\par
+main.ts is the file from where we start our project development. It starts with importing the basic module which we need. Right now if you see angular/core, angular/platform-browser-dynamic, app.module and environment is imported by default during angular-cli installation and project setup.\par
+polyfill.ts\par
+This is mainly used for backward compatibility.\par
+styles.css\par
+This is the style file required for the project.\par
+test.ts\par
+Here, the unit test cases for testing the project will be handled.\par
+tsconfig.app.json\par
+This is used during compilation, it has the config details that need to be used to run the application.\par
+tsconfig.spec.json\par
+This helps maintain the details for testing.\par
+typings.d.ts\par
+It is used to manage the TypeScript definition.\par
+\par
+Step 3: Serve the application\par
+cd my_appName\par
+ng serve  or npm start\par
+\par
+========================================================================================================\par
+\i\par
+\i0\par
+\par
+\par
+\i\par
+\i0\par
+\f0\lang9\par
+
+\pard\li2160\sa200\sl276\slmult1\par
+\par
+
+\pard\sa200\sl276\slmult1\par
+}
+ 
