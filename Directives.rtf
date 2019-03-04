@@ -1,9 +1,10 @@
-{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033\deflangfe1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri;}{\f1\froman\fprq2\fcharset0 Times New Roman;}{\f2\froman\fprq2 Times New Roman;}}
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033\deflangfe1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri;}{\f1\froman\fprq2\fcharset0 Times New Roman;}{\f2\froman\fprq2 Times New Roman;}{\f3\fswiss\fprq2 Calibri;}}
 {\colortbl ;\red0\green0\blue255;}
-{\*\generator Riched20 6.3.9600}{\*\mmathPr\mnaryLim0\mdispDef1\mwrapIndent1440 }\viewkind4\uc1 
+{\*\generator Riched20 6.3.9600}{\*\mmathPr\mdispDef1\mwrapIndent1440 }\viewkind4\uc1 
 \pard\nowidctlpar\sa200\sl276\slmult1\qc\ul\b\f0\fs36\lang9 Built-in directives\par
 
 \pard\nowidctlpar\sa200\sl276\slmult1\ulnone\fs24 Why create a directive to handle a click when we can write a simple binding such as this?\par
+The basic difference between a component and a directive is that a component has a template, whereas an attribute or structural directive does not have a template.\par
 \par
 Built-in \ul\fs52 attribute directives\ulnone\fs24\par
 \b0 Attribute directives listen to and modify the behavior of other HTML elements, attributes, properties, and components. They are usually applied to elements as if they were HTML attributes, hence the name.\par
@@ -71,6 +72,12 @@ Solution:- Angular can avoid this churn with trackBy. Add a method to the compon
   <app-confused-hero *ngSwitchCase="'confused'" [hero]="currentHero"></app-confused-hero>\par
   <app-unknown-hero  *ngSwitchDefault           [hero]="currentHero"></app-unknown-hero>\par
 </div>\par
+-------------------------------------------------------------------------------------------------------------------\par
+\b\i0 What is the difference between ng-if and ng-show/ng-hide Angular?\par
+ng-show \b0 (and its sibling ng-hide) toggle the appearance of the element by adding the CSS display: none style.\par
+\b ng-if\b0 , on the other hand, actually removes the element from the DOM when the condition is false and only adds the element back once the condition turns true.\par
+\par
+\i\par
 \b\i0\fs44 Components directives:- \fs24\par
 \b0 It is mainly used to specify the HTML templates. It is the most commonly-used directive in an Angular project. It is decorated with the @component decorator. This directive is a class. The component directive is used to specify the template/HTML for the Dom Layout. Its built-in is @component.\par
 \i app.component.css\i0 : contains all the CSS styles for the component\par
@@ -132,8 +139,205 @@ Syntax:- @ViewChild([reference from template], \{read: [reference type]\});\par
     \}\par
 \}\par
 \i0 In this example you can see that I specified tref as a template reference name in html and receive ElementRef associated with this element. The second parameter read is not always required, since angular can infer the reference type by the type of the DOM element. For example, if it\rquote s a simple html element like span, angular returns ElementRef. If it\rquote s a template element, it returns TemplateRef. Some references, like ViewContainerRef cannot be inferred and have to be asked for specifically in read parameter. Others, like ViewRef cannot be returned from the DOM and have to be constructed manually.\par
-\b ElementRef:- \{\{ {{\field{\*\fldinst{HYPERLINK https://blog.angularindepth.com/exploring-angular-dom-abstractions-80b3ebcfc02 }}{\fldrslt{https://blog.angularindepth.com/exploring-angular-dom-abstractions-80b3ebcfc02\ul0\cf0}}}}\f0\fs22  \}\}\par
+\b ElementRef:- \{\{ \}\}\par
+\b0\i class ElementRef<T> \{\par
+  constructor(nativeElement: T)\par
+  nativeElement: T\par
+\}\par
+\i0 This is the most basic abstraction. If you observe it\rquote s class structure, you\rquote ll see that it only holds the native element it\rquote s associated with\par
+ElementRef can be returned for any DOM element using ViewChild decorator. But since all components are hosted inside a custom DOM element and all directives are applied to DOM elements, component and directive classes can obtain an instance of ElementRef associated with their host element through DI mechanism:\par
+\i     selector: 'sample',\par
+    ...\par
+export class SampleComponent\{\par
+    constructor(private hostElement: ElementRef) \{\par
+        //outputs <sample>...</sample>\par
+        console.log(this.hostElement.nativeElement.outerHTML);\par
+    \}\par
+\b\i0 TemplateRef \{\{ \}\}\par
+\b0 With template tag a browser parses html and creates DOM tree but not renders it. It then can be accessed through content property:\par
 \par
+\i <script>\par
+    let tpl = document.querySelector('#tpl');\par
+    let container = document.querySelector('.insert-after-me');\par
+    insertAfter(container, tpl.content);\par
+</script>\par
+<div class="insert-after-me"></div>\par
+<ng-template id="tpl">\par
+    <span>I am span in template</span>\par
+</ng-template>\par
+\i0 Angular embraces this approach and implements TemplateRef class to work with a template. Here is how it can be used:\par
+\par
+\i @Component(\{\par
+    selector: 'sample',\par
+    template: `\par
+        <ng-template #tpl>\par
+            <span>I am span in template</span>\par
+        </ng-template>\par
+    `\par
+\})\par
+export class SampleComponent implements AfterViewInit \{\par
+    @ViewChild("tpl") tpl: TemplateRef<any>;\par
+\par
+    ngAfterViewInit() \{\par
+        let elementRef = this.tpl.elementRef;\par
+        // outputs `template bindings=\{\}`\par
+        console.log(elementRef.nativeElement.textContent);\par
+    \}\par
+\}\par
+\b\i0 ViewRef \{\{ \}\}\par
+\b0 Angular supports two types of views:\par
+Embedded Views which are linked to a Template\par
+Host Views which are linked to a Component\par
+\b Creating embedded view\b0\par
+A template simply holds a blueprint for a view. A view can be instantiated from the template using aforementioned createEmbeddedView method like this:\par
+\par
+\i ngAfterViewInit() \{\par
+    let view = this.tpl.createEmbeddedView(null);\par
+\}\par
+\b\i0 Creating host view\b0\par
+Host views are created when a component is dynamically instantiated. A component can be created dynamically using ComponentFactoryResolver:\par
+\i constructor(private injector: Injector,\par
+            private r: ComponentFactoryResolver) \{\par
+    let factory = this.r.resolveComponentFactory(ColorComponent);\par
+    let componentRef = factory.create(injector);\par
+    let view = componentRef.hostView;\par
+\}\par
+\b\i0 ViewContainerRef \{\{ \}\}\par
+\b0 Represents a container where one or more views can be attached.\par
+\i @Component(\{\par
+    selector: 'sample',\par
+    template: `\par
+        <span>I am first span</span>\par
+        <ng-container #vc></ng-container>\par
+        <span>I am last span</span>\par
+    `\par
+\})\par
+export class SampleComponent implements AfterViewInit \{\par
+    @ViewChild("vc", \{read: ViewContainerRef\}) vc: ViewContainerRef;\par
+\par
+    ngAfterViewInit(): void \{\par
+        // outputs `template bindings=\{\}`\par
+        console.log(this.vc.element.nativeElement.textContent);\par
+    \}\par
+\}\par
+\i0 ==============================================================================\par
+1. app.highlight.directives.ts\par
+\par
+\i import \{ Directive \} from '@angular/core';\par
+@Directive(\{\par
+  selector: '[appHighlight]'\par
+\})\par
+export class HighlightDirective \{\par
+  constructor() \{ \}\par
+\}\par
+\par
+\i0 The \b @Directive \b0 decorator's lone configuration property specifies the directive's CSS attribute selector\b , [appHighlight].\b0\par
+It's the brackets ([]) that make it an attribute selector. Angular locates each element in the template that has an attribute named appHighlight and applies the logic of this directive to that element\par
+\par
+\i export class HighlightDirective \{\par
+    constructor(el: ElementRef) \{\par
+       el.nativeElement.style.backgroundColor = 'yellow';\par
+    \}\}\par
+\par
+\i0 2. app.highlight.directives.html\par
+\tab\i\tab <p appHighlight>Highlight me!</p>\par
+
+\pard\widctlpar\sa200\sl276\slmult1\qc\ul\b\i0\fs32\par
+What Are @HostBinding() and @HostListener() in Angular?\par
+
+\pard\widctlpar\sa200\sl276\slmult1\ulnone\fs24 @HostListner():- \b0 In Angular, the @HostListener() function decorator allows you to handle events of the host element in the directive class. on the click of the host element, you want to show an alert window. To do this in the directive class, add @HostListener() and pass the event 'click' to it.\par
+\i @HostListener('click') onClick() \{\par
+    window.alert('Host Element Clicked');\par
+\}\par
+\i0\par
+Example:- \par
+\i import \{ Directive, ElementRef, Renderer, HostListener \} from '@angular/core';\par
+@Directive(\{\par
+    selector: '[appChbgcolor]'\par
+\})\par
+export class ChangeBgColorDirective \{\par
+    constructor(private el: ElementRef, private renderer: Renderer) \{\par
+        // this.ChangeBgColor('red');\par
+    \}\par
+    @HostListener('mouseover') onMouseOver() \{\par
+        this.ChangeBgColor('red');\par
+    \}\par
+    @HostListener('click') onClick() \{\par
+        window.alert('Host Element Clicked');\par
+    \}\par
+    @HostListener('mouseleave') onMouseLeave() \{\par
+        this.ChangeBgColor('black');\par
+    \}\par
+    ChangeBgColor(color: string) \{\par
+        this.renderer.setElementStyle(this.el.nativeElement, 'color', color);\par
+    \}\}\par
+\i0\par
+\b @HostBinding() Decorator:-\par
+\b0 The @HostBinding() function decorator allows you to set the properties of the host element from the directive class.\par
+The @HostBinding() decorator takes one parameter, the name of the host element property which value we want to assign in the directive.\par
+\par
+\i @HostBinding('style.border') border: string;\par
+@HostListener('mouseover') onMouseOver() \{\par
+    this.border = '5px solid green';\par
+\}\par
+\b\i0 Pass values into the directive with an @Input data binding:-\par
+\b0\i import \{ Directive, ElementRef, HostListener, Input \} from '@angular/core';\par
+@Directive(\{\par
+  selector: '[appHighlight]'\par
+\})\par
+export class HighlightDirective \{\par
+  constructor(private el: ElementRef) \{ \}\par
+  \tab @Input('appHighlight') highlightColor: string;\par
+  \tab @HostListener('mouseenter') onMouseEnter() \{\par
+    \tab this.highlight(this.highlightColor || 'red');\par
+  \}\par
+ \tab  @HostListener('mouseleave') onMouseLeave() \{\par
+   \tab\tab  this.highlight(null);\par
+  \}\par
+  private highlight(color: string) \{\par
+    this.el.nativeElement.style.backgroundColor = color;\par
+  \}\}\par
+\b\i0\fs40 The <ng-template> \fs24\{\{ {{\field{\*\fldinst{HYPERLINK https://blog.angularindepth.com/use-ng-template-c72852c37fba }}{\fldrslt{https://blog.angularindepth.com/use-ng-template-c72852c37fba\ul0\cf0}}}}\f0\fs24  \}\}\fs40\par
+\b0\fs24 Note: TemplateRef is the class name and <ng-template> is the html tag\f3\u8202?\emdash\u8202?they are both referencing the same thing. Odds are you\rquote ll use <ng-template> more frequently in your own code, but it\rquote s easier to find information online under the term TemplateRef since <ng-template> gives you a lot of results relating to the html5 <template> tag.\par
+Like the name indicates, the ng-template directive represents an Angular template: this means that the content of this tag will contain part of a template, that can be then be composed together with other templates in order to form the final component template.\par
+\b /app.component.html (template-tag)\b0\par
+\par
+<p>Hip!</p>\par
+<ng-template>\par
+  <p>Hip!</p>\par
+</ng-template>\par
+<p>Hooray!</p>\par
+\b The ng-container directive\f0 :- \par
+\b0 In order to avoid having to create that extra div, we can instead use ng-container directive:\par
+\par
+\i <ng-container *ngIf="lessons">\par
+    <div class="lesson" *ngFor="let lesson of lessons">\par
+        <div class="lesson-detail">\par
+            \{\{lesson | json\}\}\par
+        </div>\par
+    </div>\par
+</ng-container>\par
+\par
+\b\i0 Dynamic Template Creation with the ngTemplateOutlet directive\par
+\b0 Being able to create template references and point them to other directives such as ngIf is just the beginning.\par
+We can also take the template itself and instantiate it anywhere on the page, using the ngTemplateOutlet directive:\b\par
+\par
+\i <ng-container *ngTemplateOutlet="loading"></ng-container>\par
+\i0\par
+We can see here how ng-container helps with this use case: we are using it to instantiate on the page the loading template that we defined above.\par
+We are refering to the loading template via its template reference #loading, and we are using the ngTemplateOutlet structural directive to instantiate the template.\par
+We could add as many ngTemplateOutlet tags to the page as we would like, and instantiate a number of different templates. The value passed to this directive can be any expression that evaluates into a template reference, more on this later.\par
+Now that we know how to instantiate templates, let's talk about what is accessible or not by the template.\par
+\i\f3\par
+\b0\f0\par
+\par
+\i0\par
+\i\fs22\par
+\par
+\par
+\par
+\par
+\b\i0\par
 \b0\i\par
 \i0\par
 \par
