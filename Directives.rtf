@@ -54,6 +54,7 @@ The [(ngModel)] syntax can only set a data-bound property. If you need to do som
 \b NgForOf \b0 - repeat a template for each item in a list\par
 \b NgIf:- You can add or remove an element from the DOM by applying an NgIf directive to that element \par
 \b0\i <app-hero-detail *ngIf="isActive"></app-hero-detail>\par
+\i0 the ngFor directive doesn\rquote t support iterations over objects or Maps. \i\par
 \b\i0 NgForOf:- NgForOf is a repeater directive \emdash  a way to present a list of items. You define a block of HTML that defines how a single item should be displayed. You tell Angular to use that block as a template for rendering each item in the list.\par
 <\b0\i div *ngFor="let hero of heroes">\{\{hero.name\}\}</div>\par
 \i0 Take each hero in the heroes array, store it in the local hero looping variable, and make it available to the templated HTML for each iteration.\par
